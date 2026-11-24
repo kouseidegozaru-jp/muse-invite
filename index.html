@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muse 招待コード案内｜参加後48時間以内の入力で10億トークン</title>
+<meta name="description" content="Muse（MetaのパーソナルAI）の招待コードの案内ページ。参加後48時間以内に設定でコードを入力すると、双方に10億Museトークンが付与されます。入力手順と注意点をまとめています。">
+<style>
+body{font-family:sans-serif;margin:0;background:#0f1115;color:#e8e8ec;line-height:1.8}
+main{max-width:760px;margin:0 auto;padding:24px 18px 60px}
+h1{font-size:26px;line-height:1.4}
+h2{font-size:20px;margin-top:40px;border-left:4px solid #8b7ff0;padding-left:10px}
+.codebox{background:#1b1e26;border:1px solid #343947;border-radius:12px;padding:20px;text-align:center;margin:20px 0}
+.code{font-size:34px;letter-spacing:4px;font-weight:bold;color:#fff}
+button{background:#8b7ff0;color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:16px;cursor:pointer;margin-top:12px}
+.note{color:#b9bcc7;font-size:14px}
+ol li{margin:8px 0}
+a{color:#a99cff}
+</style>
+</head>
+<body>
+<main>
+<h1>Muse 招待コードのご案内</h1>
+<p>このページは、Muse（MetaのパーソナルAIエージェント）をこれから始める方への案内です。招待コードを参加後48時間以内に設定で入力すると、コードを使った人と招待した人の両方に<strong>10億Museトークン</strong>が付与されます。</p>
+
+<div class="codebox">
+<div class="note">管理人の招待コード（残り 8 回）</div>
+<div class="code" id="admin-code">読み込み中…</div>
+<button id="copy-btn" type="button">コードをコピー</button>
+<div class="note" id="copy-msg"></div>
+</div>
+
+<p class="note">※コードには使える回数の上限があります。上限に達したコードでは特典が付きません。残り回数は2026年11月24日時点の表示です。</p>
+
+<h2>招待コードの入力方法</h2>
+<ol>
+<li><strong>ステップ1：Museに参加する</strong><br><a href="https://muse.ai/join">Museの参加ページ</a>からアカウントを作成します。48時間のカウントは、この参加した時点から始まります。</li>
+<li><strong>ステップ2：48時間以内に設定を開く</strong><br>アプリは「設定 &gt; Redeem token（トークンを引き換える）」、Web版（muse.ai）は「設定 &gt; 一般 &gt; 使用量 &gt; 招待コードを使う」を開きます。</li>
+<li><strong>ステップ3：コードを入力して確定する</strong><br>上のコードをコピーして貼り付け、確定します。招待リンクを開いただけでは完了せず、設定で入力を確定するまで終える必要があります。</li>
+</ol>
+<p>48時間を過ぎると入力欄そのものが表示されなくなり、あとから入力し直すことはできません。「あとでいいや」が一番もったいないパターンなので、参加したらその場で入力するのがおすすめです。入力できるのは1アカウントにつき1回だけです。</p>
+
+<h2>よくある質問</h2>
+<h3>Q. 招待コードの入力欄が見つかりません</h3>
+<p>入力欄が表示されるのは、Museに参加してから48時間以内だけです。48時間を過ぎた場合や、すでに別の招待コードで引き換えを確定したアカウントでは、入力欄自体が表示されません。</p>
+<h3>Q. 「無効なコード」と表示されます</h3>
+<p>そのコードがすでに使用上限に達している可能性があります。また、0（ゼロ）とO（オー）の打ち間違いや、コピー時の余分な空白でも無効になることがあるので、コピーボタンでそのまま貼り付けるのが確実です。</p>
+<h3>Q. コードを使ったのに特典が反映されません</h3>
+<p>招待リンクを開いただけでは引き換えは完了しません。アプリまたはウェブサイトの設定で、コード入力と確定まで完了しているか確認してください。引き換え結果の画面表示が、成立したかどうかの判断基準になります。</p>
+
+<h2>Museとは</h2>
+<p>MuseはMetaのパーソナルAIエージェントです。メールや予定の整理、調べ物、文章の下書きなど、日常の用事をチャットで頼めるサービスで、無料で始められます。このページは非公式の案内ページです（Meta公式のページではありません）。</p>
+</main>
+<script>
+fetch('code.txt').then(function(r){return r.text()}).then(function(t){
+  var code=t.trim();
+  document.getElementById('admin-code').textContent=code;
+  document.getElementById('copy-btn').addEventListener('click',function(){
+    navigator.clipboard.writeText(code).then(function(){
+      document.getElementById('copy-msg').textContent='コピーしました。参加後48時間以内に設定で入力してください。';
+    });
+  });
+}).catch(function(){
+  document.getElementById('admin-code').textContent='読み込めませんでした';
+});
+</script>
+</body>
+</html>
