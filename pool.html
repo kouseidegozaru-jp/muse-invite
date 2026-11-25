@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muse招待コードプール｜コードを投稿・受け取りできる共有プール</title>
+<meta name="description" content="Metaの個人向けAIエージェント「Muse」の招待コード共有プール。コードの投稿と、ランダム受け取りができます。登録後48時間以内の入力で、招待した側・された側の双方に特典が付きます。">
+<style>
+  :root{
+    --bg:#12101a; --surface:#1d1930; --surface2:#262040; --text:#f2eefc; --muted:#b3a8d9;
+    --accent:#7c3aed; --accent2:#6d28d9; --border:#3a3160; --ok:#34d399; --warn:#fbbf24;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--bg); color:var(--text); font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif; line-height:1.7; padding:20px 14px 48px;}
+  .wrap{max-width:640px; margin:0 auto;}
+  h1{font-size:22px; line-height:1.4; margin-bottom:6px;}
+  .sub{color:var(--muted); font-size:14px; margin-bottom:22px;}
+  .card{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:18px; margin-bottom:18px;}
+  .card h2{font-size:16px; margin-bottom:10px;}
+  .featured{border:2px solid var(--accent); background:var(--surface2);}
+  .badge{display:inline-block; background:var(--accent); color:#fff; font-size:12px; font-weight:700; border-radius:999px; padding:2px 10px; margin-bottom:8px;}
+  .code-big{font-size:34px; font-weight:800; letter-spacing:3px; text-align:center; padding:10px 0 4px;}
+  .remain{text-align:center; color:var(--warn); font-weight:700; font-size:14px; margin-bottom:10px;}
+  button{background:var(--accent); color:#fff; border:none; border-radius:10px; padding:12px 18px; font-size:15px; font-weight:700; cursor:pointer; width:100%;}
+  button:active{background:var(--accent2);}
+  button.sub-btn{background:var(--surface2); border:1px solid var(--border); color:var(--text);}
+  .draw-result{font-size:28px; font-weight:800; letter-spacing:3px; text-align:center; padding:12px 0 6px; min-height:52px;}
+  input{width:100%; background:var(--bg); border:1px solid var(--border); border-radius:10px; color:var(--text); padding:12px; font-size:16px; margin-bottom:10px; text-transform:uppercase;}
+  .msg{font-size:14px; min-height:22px; margin-top:8px;}
+  .msg.ok{color:var(--ok);} .msg.err{color:#f87171;}
+  ul.codes{list-style:none;}
+  ul.codes li{display:flex; justify-content:space-between; border-bottom:1px solid var(--border); padding:8px 2px; font-size:15px;}
+  ul.codes li:last-child{border-bottom:none;}
+  ul.codes .c{font-weight:700; letter-spacing:2px;}
+  ul.codes .d{color:var(--muted); font-size:12px;}
+  .note{font-size:13px; color:var(--muted);}
+  a{color:#c4b5fd;}
+  .count{color:var(--muted); font-size:13px; margin-bottom:8px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Muse 招待コードプール</h1>
+  <p class="sub">Metaの個人向けAIエージェント「Muse」の招待コードを、みんなで共有するプールです。コードを投稿したり、ランダムで受け取ったりできます。</p>
+
+  <div class="card featured">
+    <span class="badge">イチオシ</span>
+    <h2>このサイトの招待コード</h2>
+    <div class="code-big" id="featuredCode">SYX9QM</div>
+    <div class="remain" id="featuredRemain">あと8回使えます（2026年11月24日時点）</div>
+    <button id="copyFeatured">コードをコピーする</button>
+    <p class="note" style="margin-top:10px;">登録は <a href="https://muse.ai/join" target="_blank" rel="noopener">muse.ai</a> から。登録後48時間以内にコードを入力すると、招待した側とされた側の両方に特典が付きます。手順の詳しい解説は <a href="https://note.com/nice_fennel5693/n/n4759fb2fbbf3" target="_blank" rel="noopener">noteのガイド記事</a> をどうぞ。</p>
+  </div>
+
+  <div class="card">
+    <h2>プールからランダムで受け取る</h2>
+    <div class="draw-result" id="drawResult">ーーーーーー</div>
+    <button id="drawBtn">コードを受け取る</button>
+    <button class="sub-btn" id="copyDraw" style="margin-top:10px;">表示中のコードをコピー</button>
+    <p class="msg" id="drawMsg"></p>
+  </div>
+
+  <div class="card">
+    <h2>あなたのコードを投稿する</h2>
+    <input id="postCode" maxlength="6" placeholder="招待コード（6文字）" autocomplete="off">
+    <input id="postRemain" type="number" min="1" max="30" placeholder="残り回数（任意）">
+    <button id="postBtn">プールに投稿する</button>
+    <p class="msg" id="postMsg"></p>
+    <p class="note">投稿したコードはこのページに公開されます。同じコードは二重に登録できません。</p>
+  </div>
+
+  <div class="card">
+    <h2>プールに掲載中のコード</h2>
+    <p class="count" id="poolCount">読み込み中…</p>
+    <ul class="codes" id="poolList"></ul>
+  </div>
+
+  <p class="note">注意：コードには使える回数の上限があります。上限に達したコードでは特典が付きません。その場合はプールの別のコードをお試しください。このページは非公式の個人運営です。</p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const SUPABASE_URL = "https://yugmeaqwycqkaxubksmb.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1Z21lYXF3eWNxa2F4dWJrc21iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTU2MTg1NzgsImV4cCI6MjExMTE5NDU3OH0.g-48tgq2tRR3nYn5_C4moMR7PkSp8iNDexkO-yCcP5g";
+  const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  let pool = [];
+
+  function copyText(t, msgEl, okText){
+    if(!t){ return; }
+    navigator.clipboard.writeText(t).then(()=>{ msgEl.textContent = okText; msgEl.className = "msg ok"; })
+    .catch(()=>{ msgEl.textContent = "コピーできませんでした。コードを長押しでコピーしてください。"; msgEl.className = "msg err"; });
+  }
+
+  document.getElementById("copyFeatured").addEventListener("click", ()=>{
+    copyText(document.getElementById("featuredCode").textContent.trim(), document.getElementById("drawMsg"), "イチオシのコードをコピーしました。");
+  });
+
+  async function loadPool(){
+    const listEl = document.getElementById("poolList");
+    const countEl = document.getElementById("poolCount");
+    const { data, error } = await sb.from("codes").select("code, remaining, created_at").order("created_at", { ascending:false }).limit(200);
+    if(error){ countEl.textContent = "プールの読み込みに失敗しました。"; return; }
+    pool = data || [];
+    countEl.textContent = "掲載中：" + pool.length + "件";
+    listEl.innerHTML = "";
+    pool.forEach(row=>{
+      const li = document.createElement("li");
+      const c = document.createElement("span"); c.className = "c"; c.textContent = row.code;
+      const d = document.createElement("span"); d.className = "d";
+      d.textContent = (row.remaining ? "残り" + row.remaining + "回・" : "") + new Date(row.created_at).toLocaleDateString("ja-JP");
+      li.appendChild(c); li.appendChild(d); listEl.appendChild(li);
+    });
+  }
+
+  document.getElementById("drawBtn").addEventListener("click", ()=>{
+    const msg = document.getElementById("drawMsg");
+    if(pool.length === 0){ msg.textContent = "プールにコードがまだありません。上のイチオシをお使いください。"; msg.className = "msg err"; return; }
+    const pick = pool[Math.floor(Math.random()*pool.length)];
+    document.getElementById("drawResult").textContent = pick.code;
+    msg.textContent = "プールから1件選びました。登録後48時間以内の入力をお忘れなく。"; msg.className = "msg ok";
+  });
+
+  document.getElementById("copyDraw").addEventListener("click", ()=>{
+    const t = document.getElementById("drawResult").textContent.trim();
+    if(t && t !== "ーーーーーー"){ copyText(t, document.getElementById("drawMsg"), "コードをコピーしました。"); }
+  });
+
+  document.getElementById("postBtn").addEventListener("click", async ()=>{
+    const msg = document.getElementById("postMsg");
+    const code = document.getElementById("postCode").value.trim().toUpperCase();
+    const remainRaw = document.getElementById("postRemain").value;
+    const remaining = remainRaw === "" ? null : parseInt(remainRaw, 10);
+    if(!/^[A-Z0-9]{6}$/.test(code)){ msg.textContent = "コードは半角英数字6文字で入力してください。"; msg.className = "msg err"; return; }
+    const { error } = await sb.from("codes").insert({ code: code, remaining: remaining });
+    if(error){
+      msg.textContent = (error.code === "23505") ? "そのコードはすでに登録されています。" : "投稿に失敗しました。時間をおいて再度お試しください。";
+      msg.className = "msg err"; return;
+    }
+    msg.textContent = "投稿しました。ありがとうございます。"; msg.className = "msg ok";
+    document.getElementById("postCode").value = ""; document.getElementById("postRemain").value = "";
+    loadPool();
+  });
+
+  loadPool();
+</script>
+</body>
+</html>
